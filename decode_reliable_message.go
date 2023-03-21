@@ -24,7 +24,7 @@ const (
 	OperationResponseType = 112
 	OperationRequestType  = 113
 	StringType            = 115
-	Int8SliceType         = 120
+	UInt8SliceType        = 120
 	SliceType             = 121
 	ObjectSliceType       = 122
 )
@@ -76,8 +76,8 @@ func decodeType(buf *bytes.Buffer, paramType uint8) interface{} {
 		} else {
 			return result
 		}
-	case Int8SliceType:
-		result, err := decodeSliceInt8Type(buf)
+	case UInt8SliceType:
+		result, err := decodeSliceUInt8Type(buf)
 		if err != nil {
 			return fmt.Sprintf("ERROR - Slice Int8 - %v", err.Error())
 		} else {
@@ -165,11 +165,11 @@ func decodeSlice(buf *bytes.Buffer) (interface{}, error) {
 		}
 
 		return array, nil
-	case Int8SliceType:
-		array := make([][]int8, length)
+	case SliceUInt8Type:
+		array := make([][]uint8, length)
 
 		for j := 0; j < int(length); j++ {
-			result, err := decodeSliceInt8Type(buf)
+			result, err := decodeSliceUInt8Type(buf)
 			if err != nil {
 				return nil, err
 			}
@@ -259,6 +259,28 @@ func decodeSliceInt8Type(buf *bytes.Buffer) ([]int8, error) {
 
 	for j := 0; j < int(length); j++ {
 		var temp int8
+		err := binary.Read(buf, binary.BigEndian, &temp)
+		if err != nil {
+			return nil, err
+		}
+		array[j] = temp
+	}
+
+	return array, nil
+}
+
+func decodeSliceUInt8Type(buf *bytes.Buffer) ([]uint8, error) {
+	var length uint32
+
+	err := binary.Read(buf, binary.BigEndian, &length)
+	if err != nil {
+		return nil, err
+	}
+
+	array := make([]uint8, length)
+
+	for j := 0; j < int(length); j++ {
+		var temp uint8
 		err := binary.Read(buf, binary.BigEndian, &temp)
 		if err != nil {
 			return nil, err
