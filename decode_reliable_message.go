@@ -24,7 +24,7 @@ const (
 	OperationResponseType = 112
 	OperationRequestType  = 113
 	StringType            = 115
-	UInt8SliceType        = 120
+	SliceUInt8Type        = 120
 	SliceType             = 121
 	ObjectSliceType       = 122
 )
@@ -76,7 +76,7 @@ func decodeType(buf *bytes.Buffer, paramType uint8) interface{} {
 		} else {
 			return result
 		}
-	case UInt8SliceType:
+	case SliceUInt8Type:
 		result, err := decodeSliceUInt8Type(buf)
 		if err != nil {
 			return fmt.Sprintf("ERROR - Slice Int8 - %v", err.Error())
