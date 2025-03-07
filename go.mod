@@ -1,4 +1,4 @@
-module github.com/ao-data/photon-spectator
+module github.com/ao-data/photon_spectator
 
 go 1.16
 
