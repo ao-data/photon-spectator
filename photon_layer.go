@@ -3,6 +3,7 @@ package photon_spectator
 import (
 	"bytes"
 	"encoding/binary"
+	"errors"
 
 	"github.com/google/gopacket"
 )
@@ -65,8 +66,8 @@ func decodePhotonPacket(data []byte, p gopacket.PacketBuilder) error {
 		dataLength := int(command.Length) - PhotonCommandHeaderLength
 
 		// Ensure we don't try to read more than we have
-		if dataLength > buf.Len() {
-			panic("Data is malformed")
+		if dataLength < 0 || dataLength > buf.Len() {
+			return errors.New("photon: malformed packet data")
 		}
 
 		command.Data = make([]byte, dataLength)

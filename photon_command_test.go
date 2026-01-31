@@ -33,8 +33,8 @@ func TestPhotonCommand_ReliableMessage_OperationRequest(t *testing.T) {
 		t.Errorf("OperationCode invalid")
 	}
 
-	if msg.ParamaterCount != int16(1) {
-		t.Errorf("ParamaterCount invalid")
+	if msg.ParameterCount != int16(1) {
+		t.Errorf("ParameterCount invalid")
 	}
 }
 
@@ -57,8 +57,8 @@ func TestPhotonCommand_ReliableMessage_EventData(t *testing.T) {
 		t.Errorf("EventCode invalid")
 	}
 
-	if msg.ParamaterCount != int16(1) {
-		t.Errorf("ParamaterCount invalid")
+	if msg.ParameterCount != int16(1) {
+		t.Errorf("ParameterCount invalid")
 	}
 }
 
