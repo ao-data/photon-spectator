@@ -87,7 +87,7 @@ var responses = []struct {
 func TestDecodeReliableMessage(t *testing.T) {
 	for _, r := range responses {
 		var msg ReliableMessage
-		msg.ParamaterCount = 1
+		msg.ParameterCount = 1
 		msg.Data = r.input
 
 		actual := DecodeReliableMessage(msg)
@@ -100,7 +100,7 @@ func TestDecodeReliableMessage(t *testing.T) {
 
 func TestDecodeReliableMessage_DefaultError(t *testing.T) {
 	var msg ReliableMessage
-	msg.ParamaterCount = 1
+	msg.ParameterCount = 1
 	msg.Data = []byte{64, 64, 64}
 
 	params := DecodeReliableMessage(msg)
@@ -112,7 +112,7 @@ func TestDecodeReliableMessage_DefaultError(t *testing.T) {
 
 func TestDecodeReliableMessage_BooleanError(t *testing.T) {
 	var msg ReliableMessage
-	msg.ParamaterCount = 1
+	msg.ParameterCount = 1
 	msg.Data = []byte{64, BooleanType, 64}
 
 	params := DecodeReliableMessage(msg)
@@ -124,7 +124,7 @@ func TestDecodeReliableMessage_BooleanError(t *testing.T) {
 
 func TestDecodeReliableMessage_SliceError(t *testing.T) {
 	var msg ReliableMessage
-	msg.ParamaterCount = 1
+	msg.ParameterCount = 1
 	msg.Data = []byte{0x00, SliceType, 0x00, 0x01, BooleanType, 0xff}
 
 	params := DecodeReliableMessage(msg)
@@ -136,7 +136,7 @@ func TestDecodeReliableMessage_SliceError(t *testing.T) {
 
 func TestDecodeReliableMessage_SliceDefaultError(t *testing.T) {
 	var msg ReliableMessage
-	msg.ParamaterCount = 1
+	msg.ParameterCount = 1
 	msg.Data = []byte{0x00, SliceType, 0x00, 0x01, 64, 0xff}
 
 	params := DecodeReliableMessage(msg)
@@ -148,7 +148,7 @@ func TestDecodeReliableMessage_SliceDefaultError(t *testing.T) {
 
 func TestDecodeReliableMessage_SliceNestedError(t *testing.T) {
 	var msg ReliableMessage
-	msg.ParamaterCount = 1
+	msg.ParameterCount = 1
 	msg.Data = []byte{0x00, SliceType, 0x00, 0x01, SliceType, 0x00, 0x01, 64, 0x00}
 
 	params := DecodeReliableMessage(msg)

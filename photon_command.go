@@ -52,7 +52,7 @@ type ReliableMessage struct {
 	OperationDebugString  string
 	OperationDebugByte    uint8
 
-	ParamaterCount int16
+	ParameterCount int16
 	Data           []byte
 }
 
@@ -91,7 +91,7 @@ func (c PhotonCommand) ReliableMessage() (msg ReliableMessage, err error) {
 		binary.Read(buf, binary.BigEndian, &msg.OperationCode)
 	case EventDataType:
 		binary.Read(buf, binary.BigEndian, &msg.EventCode)
-	case OperationResponse, otherOperationResponse:
+	case OperationResponse:
 		binary.Read(buf, binary.BigEndian, &msg.OperationCode)
 		binary.Read(buf, binary.BigEndian, &msg.OperationResponseCode)
 		binary.Read(buf, binary.BigEndian, &msg.OperationDebugByte)
@@ -101,7 +101,7 @@ func (c PhotonCommand) ReliableMessage() (msg ReliableMessage, err error) {
 		}
 	}
 
-	binary.Read(buf, binary.BigEndian, &msg.ParamaterCount)
+	binary.Read(buf, binary.BigEndian, &msg.ParameterCount)
 	msg.Data = buf.Bytes()
 
 	return

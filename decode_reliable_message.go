@@ -29,15 +29,18 @@ const (
 	ObjectSliceType       = 122
 )
 
-type ReliableMessageParamaters map[uint8]interface{}
+type ReliableMessageParameters map[uint8]interface{}
+
+// Deprecated: Use ReliableMessageParameters instead.
+type ReliableMessageParamaters = ReliableMessageParameters
 
 // Converts the parameters of a reliable message into a hash suitable for use in
 // hashmap.
-func DecodeReliableMessage(msg ReliableMessage) ReliableMessageParamaters {
+func DecodeReliableMessage(msg ReliableMessage) ReliableMessageParameters {
 	buf := bytes.NewBuffer(msg.Data)
 	params := make(map[uint8]interface{})
 
-	for i := 0; i < int(msg.ParamaterCount); i++ {
+	for i := 0; i < int(msg.ParameterCount); i++ {
 		var paramID uint8
 		var paramType uint8
 
