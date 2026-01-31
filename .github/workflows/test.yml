@@ -6,15 +6,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
-          go-version: '1.16.x'
-      - name: Install dependencies
-        run: go get .
+          go-version: '1.24.x'
+      - name: Verify vendor
+        run: go mod verify
       - name: Build
-        run: go build
+        run: go build -mod=vendor
       - name: Test with the Go CLI
-        run: go test
+        run: go test -mod=vendor

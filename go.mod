@@ -1,6 +1,6 @@
 module github.com/ao-data/photon-spectator
 
-go 1.16
+go 1.24.0
 
 require (
 	github.com/google/gopacket v1.1.19
